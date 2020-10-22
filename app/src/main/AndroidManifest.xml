@@ -6,16 +6,12 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:launchMode="singleTask"
-            android:taskAffinity=":first"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
             android:name=".FirstActivity" />
         <activity
-            android:launchMode="singleInstance"
             android:name=".SecondActivity">
         </activity>
         <activity android:name=".BaseActivity" />
