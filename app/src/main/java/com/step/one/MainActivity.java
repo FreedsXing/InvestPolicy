@@ -2,7 +2,9 @@ package com.step.one;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import butterknife.BindView;
@@ -16,6 +18,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @BindView(R.id.tv_to_second)
     TextView tvToSecond;
 
+    @BindView(R.id.iv_star)
+    ImageView ivStar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +28,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         tvToFirst.setOnClickListener(this);
         tvToSecond.setOnClickListener(this);
+        ivStar.setOnClickListener(this::onClick);
     }
 
 
@@ -37,6 +43,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.tv_to_second:
                 intent = new Intent(MainActivity.this, SecondActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.iv_star:
+                Log.e("TAG", TAG + "---------isSelected=" + ivStar.isSelected());
+                Log.e("TAG", TAG + "---------isClickable=" + ivStar.isClickable());
+                Log.e("TAG", TAG + "---------hasFocus=" + ivStar.hasFocus());
+
+                if (ivStar.isSelected()){
+                    ivStar.setSelected(false);
+                }else {
+                    ivStar.setSelected(true);
+                }
                 break;
             default:
                 break;

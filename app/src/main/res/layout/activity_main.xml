@@ -35,4 +35,13 @@
         android:textSize="18sp">
     </TextView>
 
+    <ImageView
+        android:background="@drawable/bg_remark_grade"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="15dp"
+        android:id="@+id/iv_star"
+        android:layout_width="26dp"
+        android:layout_height="26dp">
+    </ImageView>
+
 </androidx.appcompat.widget.LinearLayoutCompat>
