@@ -29,6 +29,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         tvToFirst.setOnClickListener(this);
         tvToSecond.setOnClickListener(this);
         ivStar.setOnClickListener(this::onClick);
+
+
+
+
     }
 
 
