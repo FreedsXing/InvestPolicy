@@ -2,10 +2,14 @@ package com.step.one;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.io.File;
 
 import butterknife.BindView;
 
@@ -21,6 +25,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @BindView(R.id.iv_star)
     ImageView ivStar;
 
+    @BindView(R.id.et_input)
+    EditText etInput;
+    @BindView(R.id.tv_commit)
+    TextView tvCommit;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,8 +40,35 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         ivStar.setOnClickListener(this::onClick);
 
 
+        File file = new File("/android");
 
+        Log.i("TAG", TAG + "--------------" + getExternalCacheDir());
+        String str = "12.33";
+        String [] first = str.split(",");
+        for (int i = 0; i < first.length; i++) {
+            Log.i("TAG", TAG + "------------------first=" + first[i]);
+        }
 
+        String str2 = "12.33,";
+        String [] first2 = str2.split(",");
+        for (int i = 0; i < first2.length; i++) {
+            Log.i("TAG", TAG + "------------------first2=" + first2[i]);
+        }
+
+        String str3 = "12.33,44455";
+        String [] first3 = str3.split(",");
+        for (int i = 0; i < first3.length; i++) {
+            Log.i("TAG", TAG + "------------------first3=" + first3[i]);
+        }
+
+        String str4 = " 12.33 ,  444 5 5, ,      ,  ";
+        String str5 = str4.replace(" ", "");
+        String [] first4 = str5.split(",");
+        for (int i = 0; i < first4.length; i++) {
+            Log.i("TAG", TAG + "------------------first4=" + first4[i]);
+        }
+
+        tvCommit.setOnClickListener(this);
     }
 
 
@@ -58,6 +94,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 }else {
                     ivStar.setSelected(true);
                 }
+                break;
+            case R.id.tv_commit:
+                String inputStr = etInput.getText().toString();
+
+                if (!TextUtils.isEmpty(inputStr)){
+                    tvCommit.setText("|" + inputStr + "|");
+                }else {
+                    tvCommit.setText("|||" + inputStr + "|||");
+                }
+
                 break;
             default:
                 break;
