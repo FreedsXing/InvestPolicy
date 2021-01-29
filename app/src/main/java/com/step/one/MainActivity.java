@@ -40,33 +40,54 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         ivStar.setOnClickListener(this::onClick);
 
 
+        Log.i("TAG", TAG + "----onCreate----" + Thread.currentThread().getName());
+
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Log.i("TAG", TAG + "----onCreate----" + Thread.currentThread().getName());
+            }
+        });
+
+        thread.start();
+
+        String str1=  "hello";
+        String str2 = " world";
+        String str3 = "hello" + " world";
+        String str4 = str1 + " world";
+        String str5 = "hello world";
+
+        Log.i("TAG", "---------------" + String.valueOf(str3 == str4));
+        Log.i("TAG", "---------------" + String.valueOf(str3 == str5));
+
         File file = new File("/android");
-
-        Log.i("TAG", TAG + "--------------" + getExternalCacheDir());
-        String str = "12.33";
-        String [] first = str.split(",");
-        for (int i = 0; i < first.length; i++) {
-            Log.i("TAG", TAG + "------------------first=" + first[i]);
-        }
-
-        String str2 = "12.33,";
-        String [] first2 = str2.split(",");
-        for (int i = 0; i < first2.length; i++) {
-            Log.i("TAG", TAG + "------------------first2=" + first2[i]);
-        }
-
-        String str3 = "12.33,44455";
-        String [] first3 = str3.split(",");
-        for (int i = 0; i < first3.length; i++) {
-            Log.i("TAG", TAG + "------------------first3=" + first3[i]);
-        }
-
-        String str4 = " 12.33 ,  444 5 5, ,      ,  ";
-        String str5 = str4.replace(" ", "");
-        String [] first4 = str5.split(",");
-        for (int i = 0; i < first4.length; i++) {
-            Log.i("TAG", TAG + "------------------first4=" + first4[i]);
-        }
+//
+//        Log.i("TAG", TAG + "--------------" + getExternalCacheDir());
+//        String str = "12.33";
+//        String [] first = str.split(",");
+//        for (int i = 0; i < first.length; i++) {
+//            Log.i("TAG", TAG + "------------------first=" + first[i]);
+//        }
+//
+//        String str2 = "12.33,";
+//        String [] first2 = str2.split(",");
+//        for (int i = 0; i < first2.length; i++) {
+//            Log.i("TAG", TAG + "------------------first2=" + first2[i]);
+//        }
+//
+//        String str3 = "12.33,44455";
+//        String [] first3 = str3.split(",");
+//        for (int i = 0; i < first3.length; i++) {
+//            Log.i("TAG", TAG + "------------------first3=" + first3[i]);
+//        }
+//
+//        String str4 = " 12.33 ,  444 5 5, ,      ,  ";
+//        String str5 = str4.replace(" ", "");
+//        String [] first4 = str5.split(",");
+//        for (int i = 0; i < first4.length; i++) {
+//            Log.i("TAG", TAG + "------------------first4=" + first4[i]);
+//        }
 
         tvCommit.setOnClickListener(this);
     }
