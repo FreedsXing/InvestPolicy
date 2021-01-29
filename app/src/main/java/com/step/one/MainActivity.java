@@ -2,6 +2,8 @@ package com.step.one;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -9,7 +11,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.Timer;
 
 import butterknife.BindView;
 
@@ -30,6 +38,44 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @BindView(R.id.tv_commit)
     TextView tvCommit;
 
+
+    @BindView(R.id.margin_seconds)
+    TextView tvMarginSeconds;
+    @BindView(R.id.start_cal)
+    TextView tvStartCal;
+    @BindView(R.id.end_cal)
+    TextView tvEndCal;
+
+    class CalTimeHandler extends Handler{
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            super.handleMessage(msg);
+        }
+    }
+
+    class CalTimeRunnable implements Runnable{
+        @Override
+        public void run() {
+            tvMarginSeconds.setText(getTime());
+            calTimeHandler.postDelayed(calTimeRunnable, 1000);
+        }
+    }
+
+
+    private CalTimeHandler calTimeHandler = new CalTimeHandler();
+    private CalTimeRunnable calTimeRunnable;
+
+    /**
+     * 获取时间
+     *
+     * @return 格式化后的时间
+     */
+    private static String getTime() {
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss", Locale.CHINA);
+        return format.format(new Date());
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,18 +85,21 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         tvToSecond.setOnClickListener(this);
         ivStar.setOnClickListener(this::onClick);
 
+        tvStartCal.setOnClickListener(this::onClick);
+        tvEndCal.setOnClickListener(this::onClick);
+
 
         Log.i("TAG", TAG + "----onCreate----" + Thread.currentThread().getName());
-
-
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 Log.i("TAG", TAG + "----onCreate----" + Thread.currentThread().getName());
             }
         });
-
         thread.start();
+
+
+
 
         String str1=  "hello";
         String str2 = " world";
@@ -124,7 +173,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 }else {
                     tvCommit.setText("|||" + inputStr + "|||");
                 }
+                break;
 
+            case R.id.start_cal:
+                if (calTimeRunnable == null){
+                    calTimeRunnable = new CalTimeRunnable();
+                    calTimeHandler.post(calTimeRunnable);
+                }
+                break;
+            case R.id.end_cal:
+                if (calTimeHandler != null){
+                    calTimeHandler.removeCallbacks(calTimeRunnable);
+                }
                 break;
             default:
                 break;
